@@ -13,6 +13,11 @@ COPY docker/smtp-config.php /usr/src/nextcloud/config/smtp-config.php
 RUN find /usr/src/nextcloud/apps -name "info.xml" -exec \
     sed -i 's/max-version="33"/max-version="34"/g' {} \;
 
+# Fix: v34 source adds new PHP files not in v33 classmaps.
+# Disable authoritative classmap so PSR-4 autoloading works.
+RUN find /usr/src/nextcloud/apps -path "*/composer/autoload_real.php" -exec \
+    sed -i 's/setClassMapAuthoritative(true)/setClassMapAuthoritative(false)/' {} \;
+
 # Ensure correct ownership
 RUN chown -R www-data:www-data /usr/src/nextcloud/
 
