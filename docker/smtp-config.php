@@ -1,8 +1,9 @@
 <?php
 
 /**
- * Resend SMTP configuration for Skafld Cloud
- * Reply-to and mail sender settings
+ * Resend SMTP + reply-to configuration for Skafld Cloud.
+ * SMTP host/port/auth are set via Railway env vars (SMTP_HOST, etc).
+ * This file adds reply-to which the Docker env vars don't support.
  */
 $CONFIG = [
   'mail_smtpreplytoaddress' => 'hello@skafldstudio.com',
