@@ -1,0 +1,3 @@
+setup:
+  - project: skafld-cloud
+    config: dev

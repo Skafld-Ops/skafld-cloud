@@ -181,3 +181,10 @@ cypress/snapshots
 cypress/videos
 
 /.direnv
+
+# Doppler / secrets
+.env
+.env.local
+.env.*.local
+.doppler.yaml.lock
+*.backup.yaml
