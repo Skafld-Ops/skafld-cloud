@@ -1,18 +1,7 @@
-.git
-.github
-.devcontainer
-node_modules
-cypress
-__tests__
-__mocks__
-tests
-*.md
-.gitignore
-.editorconfig
-.eslintrc.*
-.prettierrc*
-codecov.yml
-jest.config.*
-cypress.config.*
-custom.d.ts
-contribute
+# Exclude everything except docker/ config and Dockerfile
+*
+
+# Include only what the build needs
+!docker/
+!Dockerfile
+!railway.toml

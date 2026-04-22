@@ -1,5 +1,21 @@
 FROM nextcloud:33-apache
 
-# Resend SMTP reply-to config (host/port/auth set via Railway env vars)
+# Install ffmpeg for video/audio preview generation
+# and additional utilities for document previews
+RUN set -ex; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends \
+        ffmpeg \
+        libmagickcore-6.q16-7-extra \
+    ; \
+    rm -rf /var/lib/apt/lists/*
+
+# PHP tuning: OPcache, APCu, upload limits
+COPY docker/php-tuning.ini /usr/local/etc/php/conf.d/99-skafld-tuning.ini
+
+# Nextcloud config overlays (loaded alphabetically from config/)
 COPY docker/smtp-config.php /usr/src/nextcloud/config/smtp-config.php
-RUN chown www-data:www-data /usr/src/nextcloud/config/smtp-config.php
+COPY docker/redis-config.php /usr/src/nextcloud/config/redis-config.php
+COPY docker/performance-config.php /usr/src/nextcloud/config/performance-config.php
+
+RUN chown -R www-data:www-data /usr/src/nextcloud/config/
