@@ -22,7 +22,7 @@ Client  -->  cloud.skafldstudio.com  -->  Railway (Docker)
 | **Nextcloud 33** | Docker (nextcloud:33-apache) | Core application |
 | **PostgreSQL** | Railway managed | Primary database |
 | **Redis** | Railway managed | Distributed cache + file locking |
-| **S3** | Railway Buckets | Object storage for user files |
+| **S3** | Railway Buckets | Object storage for user files (native Docker image support via `OBJECTSTORE_S3_*` env vars) |
 | **Resend** | smtp.resend.com | Transactional email |
 | **Doppler** | doppler.yaml | Secrets management (dev/stg/prd) |
 
@@ -34,7 +34,6 @@ All customizations live in `docker/` and the root `Dockerfile`. The rest is upst
 |------|---------|
 | `docker/php-tuning.ini` | OPcache + JIT, APCu 128M, 512MB upload limits |
 | `docker/redis-config.php` | Redis caching from `REDIS_URL` with APCu fallback |
-| `docker/s3-config.php` | S3 object storage from `OBJECTSTORE_S3_*` env vars |
 | `docker/smtp-config.php` | Resend SMTP, reply-to hello@skafldstudio.com |
 | `docker/performance-config.php` | 20+ preview providers, maintenance window, trash retention |
 | `Dockerfile` | Adds ffmpeg + ImageMagick for media previews |

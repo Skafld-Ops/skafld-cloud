@@ -17,6 +17,5 @@ COPY docker/php-tuning.ini /usr/local/etc/php/conf.d/99-skafld-tuning.ini
 COPY docker/smtp-config.php /usr/src/nextcloud/config/smtp-config.php
 COPY docker/redis-config.php /usr/src/nextcloud/config/redis-config.php
 COPY docker/performance-config.php /usr/src/nextcloud/config/performance-config.php
-COPY docker/s3-config.php /usr/src/nextcloud/config/s3-config.php
 
 RUN chown -R www-data:www-data /usr/src/nextcloud/config/

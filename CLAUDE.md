@@ -43,8 +43,9 @@ doppler run -- docker compose up    # Run with secrets
 ## Skafld Customizations (docker/)
 All Skafld-specific configs live in `docker/` and the root `Dockerfile`:
 - `docker/php-tuning.ini` — OPcache, JIT, APCu, 512MB uploads
-- `docker/redis-config.php` — Redis from REDIS_URL env var
+- `docker/redis-config.php` — Redis from REDIS_URL env var (extends built-in)
 - `docker/smtp-config.php` — Resend SMTP, reply-to hello@skafldstudio.com
+- S3 object storage is handled natively by the Nextcloud Docker image via `OBJECTSTORE_S3_*` env vars
 - `docker/performance-config.php` — Preview providers, maintenance window
 
 ## Key Namespaces
@@ -53,11 +54,10 @@ All Skafld-specific configs live in `docker/` and the root `Dockerfile`:
 - `NCU\` → `lib/unstable/` (experimental APIs)
 
 ## Active Issues
-1. **S3 bucket provisioning** — config wired up (docker/s3-config.php) but Railway bucket needs to be provisioned and tested
-2. **Upstream sync strategy** — document when/how to merge from nextcloud/server upstream
+1. **Upstream sync strategy** — document when/how to merge from nextcloud/server upstream
 
 ## Next Action
-Provision and test the S3 bucket on Railway to ensure file persistence across container redeployments.
+Document upstream sync strategy to keep Skafld customizations safe during Nextcloud updates.
 
 ## Full Context
 For detailed audit, health scorecard, roadmap, and changelog, see `.project-state/`:
