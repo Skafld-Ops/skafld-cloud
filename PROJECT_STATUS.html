@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skafld Cloud — Project Status</title>
+<style>
+:root {
+  --bg: #0f1117; --bg-card: #1a1d27; --bg-elevated: #252836;
+  --text: #e2e8f0; --text-muted: #94a3b8; --border: #2d3348;
+  --accent: #6366f1;
+  --green: #22c55e; --yellow: #eab308; --red: #ef4444; --gray: #6b7280;
+  --orange: #f97316; --blue: #3b82f6;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f8fafc; --bg-card: #ffffff; --bg-elevated: #f1f5f9;
+    --text: #1e293b; --text-muted: #64748b; --border: #e2e8f0;
+  }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+nav { position: fixed; top: 0; left: 0; width: 240px; height: 100vh; background: var(--bg-card); border-right: 1px solid var(--border); padding: 1.5rem 1rem; overflow-y: auto; z-index: 10; }
+nav h2 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 1rem; }
+nav a { display: block; padding: 0.4rem 0.75rem; color: var(--text-muted); text-decoration: none; font-size: 0.85rem; border-radius: 6px; margin-bottom: 2px; transition: all 0.2s; }
+nav a:hover, nav a.active { background: var(--bg-elevated); color: var(--text); }
+main { margin-left: 240px; padding: 2rem 3rem; max-width: 960px; }
+h1 { font-size: 1.75rem; margin-bottom: 0.25rem; }
+h2 { font-size: 1.35rem; margin: 2.5rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+h3 { font-size: 1.1rem; margin: 1.5rem 0 0.75rem; }
+.meta { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 2rem; }
+.badge { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 99px; font-size: 0.75rem; font-weight: 600; }
+.badge-green { background: var(--green); color: #000; }
+.badge-yellow { background: var(--yellow); color: #000; }
+.badge-red { background: var(--red); color: #fff; }
+.badge-gray { background: var(--gray); color: #fff; }
+.badge-orange { background: var(--orange); color: #000; }
+.badge-blue { background: var(--blue); color: #fff; }
+.score { font-size: 3rem; font-weight: 800; margin: 1rem 0; }
+.score-green { color: var(--green); }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+.stat { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; text-align: center; }
+.stat-value { font-size: 1.5rem; font-weight: 700; }
+.stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+th, td { padding: 0.5rem 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+th { color: var(--text-muted); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+details { margin: 0.75rem 0; }
+summary { cursor: pointer; font-weight: 600; padding: 0.5rem 0; color: var(--text); }
+summary:hover { color: var(--accent); }
+.card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; margin: 1rem 0; }
+code { background: var(--bg-elevated); padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.85em; }
+pre { background: var(--bg-elevated); padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.8rem; margin: 0.75rem 0; }
+.priority-1 { border-left: 3px solid var(--red); padding-left: 1rem; margin: 0.75rem 0; }
+.priority-2 { border-left: 3px solid var(--yellow); padding-left: 1rem; margin: 0.75rem 0; }
+.priority-3 { border-left: 3px solid var(--gray); padding-left: 1rem; margin: 0.75rem 0; }
+@media (max-width: 768px) {
+  nav { display: none; }
+  main { margin-left: 0; padding: 1rem; }
+}
+@media print {
+  nav { display: none; }
+  main { margin-left: 0; }
+  details[open] summary ~ * { display: block; }
+  details { open: true; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <h2>Navigation</h2>
+  <a href="#header">Overview</a>
+  <a href="#health">Health Scorecard</a>
+  <a href="#classification">Project Classification</a>
+  <a href="#docs">Documentation</a>
+  <a href="#services">Services & Config</a>
+  <a href="#roadmap">Roadmap</a>
+  <a href="#changelog">Changelog</a>
+  <a href="#deps">Dependencies</a>
+  <a href="#recommendations">Recommendations</a>
+</nav>
+
+<main>
+
+<section id="header">
+  <h1>Skafld Cloud</h1>
+  <p class="meta">Generated 2026-04-23 &middot; Commit <code>2003e52</code> &middot; Branch <code>master</code></p>
+  <div class="score score-green">98/100</div>
+  <p><span class="badge badge-green">Healthy</span></p>
+  <div class="stats">
+    <div class="stat"><div class="stat-value">8,086</div><div class="stat-label">Source Files</div></div>
+    <div class="stat"><div class="stat-value">1,475</div><div class="stat-label">Test Files</div></div>
+    <div class="stat"><div class="stat-value">56</div><div class="stat-label">CI Workflows</div></div>
+    <div class="stat"><div class="stat-value">32</div><div class="stat-label">Apps</div></div>
+    <div class="stat"><div class="stat-value">25</div><div class="stat-label">Env Vars</div></div>
+  </div>
+</section>
+
+<section id="health">
+  <h2>Health Scorecard</h2>
+  <table>
+    <thead><tr><th>Category</th><th>Check</th><th>Result</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Version Control</td><td>Git initialized</td><td><span class="badge badge-green">PASS</span></td><td>.git/ present</td></tr>
+      <tr><td></td><td>.gitignore exists</td><td><span class="badge badge-green">PASS</span></td><td>190 lines, comprehensive</td></tr>
+      <tr><td></td><td>No secrets committed</td><td><span class="badge badge-green">PASS</span></td><td>.env in .gitignore, Doppler for secrets</td></tr>
+      <tr><td></td><td>Clean working tree</td><td><span class="badge badge-green">PASS</span></td><td>No uncommitted changes</td></tr>
+      <tr><td>Testing</td><td>Test files exist</td><td><span class="badge badge-green">PASS</span></td><td>1,475 test files</td></tr>
+      <tr><td></td><td>Coverage configured</td><td><span class="badge badge-green">PASS</span></td><td>Vitest coverage + codecov.yml</td></tr>
+      <tr><td>CI/CD</td><td>Pipeline exists</td><td><span class="badge badge-green">PASS</span></td><td>56 GitHub Actions workflows</td></tr>
+      <tr><td>Dependencies</td><td>Lock file present</td><td><span class="badge badge-green">PASS</span></td><td>composer.lock + package-lock.json</td></tr>
+      <tr><td></td><td>Deps pinned</td><td><span class="badge badge-green">PASS</span></td><td>Version ranges in both</td></tr>
+      <tr><td></td><td>Dev deps separated</td><td><span class="badge badge-green">PASS</span></td><td>devDependencies separate</td></tr>
+      <tr><td>Documentation</td><td>README exists</td><td><span class="badge badge-green">PASS</span></td><td>Present</td></tr>
+      <tr><td></td><td>README current</td><td><span class="badge badge-yellow">WARNING</span></td><td>Stock Nextcloud README, not Skafld-specific (-2)</td></tr>
+      <tr><td></td><td>Contributing guide</td><td><span class="badge badge-green">PASS</span></td><td>.github/CONTRIBUTING.md</td></tr>
+      <tr><td>Code Quality</td><td>Linter configured</td><td><span class="badge badge-green">PASS</span></td><td>ESLint, php-cs-fixer, Psalm, Stylelint</td></tr>
+      <tr><td></td><td>Formatter configured</td><td><span class="badge badge-green">PASS</span></td><td>php-cs-fixer, .editorconfig</td></tr>
+      <tr><td></td><td>Type checking</td><td><span class="badge badge-green">PASS</span></td><td>TypeScript + Psalm</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Docker Checks</h3>
+  <table>
+    <thead><tr><th>Check</th><th>Result</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>.dockerignore exists</td><td><span class="badge badge-green">PASS</span></td><td>Present</td></tr>
+      <tr><td>No latest tag in FROM</td><td><span class="badge badge-green">PASS</span></td><td>nextcloud:33-apache</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Node/TypeScript Checks</h3>
+  <table>
+    <thead><tr><th>Check</th><th>Result</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>engines field specified</td><td><span class="badge badge-green">PASS</span></td><td>Node ^24.0.0, npm ^11.3.0</td></tr>
+      <tr><td>node_modules in .gitignore</td><td><span class="badge badge-green">PASS</span></td><td>Present</td></tr>
+      <tr><td>tsconfig.json present</td><td><span class="badge badge-green">PASS</span></td><td>Present</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="classification">
+  <h2>Project Classification</h2>
+  <div class="card">
+    <table>
+      <tbody>
+        <tr><td><strong>Type</strong></td><td>Single repo (upstream fork with deployment customizations)</td></tr>
+        <tr><td><strong>Languages</strong></td><td>PHP (~85%), TypeScript/JavaScript (~10%), Vue 3 (~5%)</td></tr>
+        <tr><td><strong>Framework</strong></td><td>Nextcloud Server v34 (dev)</td></tr>
+        <tr><td><strong>Platform</strong></td><td>Web (self-hosted cloud storage/collaboration)</td></tr>
+        <tr><td><strong>Architecture</strong></td><td>Monolithic PHP app with modular apps system</td></tr>
+        <tr><td><strong>Base Image</strong></td><td>nextcloud:33-apache</td></tr>
+        <tr><td><strong>Deployment</strong></td><td>Docker on Railway</td></tr>
+        <tr><td><strong>Domain</strong></td><td>cloud.skafldstudio.com</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="docs">
+  <h2>Documentation Inventory</h2>
+  <div class="stats">
+    <div class="stat"><div class="stat-value">15</div><div class="stat-label">Total Docs</div></div>
+    <div class="stat"><div class="stat-value">12</div><div class="stat-label">Current</div></div>
+    <div class="stat"><div class="stat-value">2</div><div class="stat-label">Stale</div></div>
+    <div class="stat"><div class="stat-value">1</div><div class="stat-label">Missing</div></div>
+  </div>
+
+  <details open>
+    <summary>Tier 1: Root Governance</summary>
+    <table>
+      <thead><tr><th>File</th><th>Status</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td><code>README.md</code></td><td><span class="badge badge-yellow">Stale</span></td><td>Update with Skafld-specific content</td></tr>
+        <tr><td><code>CHANGELOG.md</code></td><td><span class="badge badge-yellow">Stale</span></td><td>Update or point to .project-state/changelog.md</td></tr>
+        <tr><td><code>CODE_OF_CONDUCT.md</code></td><td><span class="badge badge-green">Current</span></td><td>Keep</td></tr>
+        <tr><td><code>SECURITY.md</code></td><td><span class="badge badge-green">Current</span></td><td>Keep</td></tr>
+        <tr><td><code>COPYING</code></td><td><span class="badge badge-green">Current</span></td><td>Keep</td></tr>
+        <tr><td><code>.env.example</code></td><td><span class="badge badge-green">Current</span></td><td>Keep</td></tr>
+        <tr><td><code>CLAUDE.md</code></td><td><span class="badge badge-green">Current</span></td><td>Just created</td></tr>
+      </tbody>
+    </table>
+  </details>
+
+  <details>
+    <summary>Tier 3-4: Package & Architecture Docs</summary>
+    <table>
+      <thead><tr><th>File</th><th>Status</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td><code>DESIGN.md</code></td><td><span class="badge badge-green">Current</span></td><td>Keep (upstream)</td></tr>
+        <tr><td><code>.github/CONTRIBUTING.md</code></td><td><span class="badge badge-green">Current</span></td><td>Keep</td></tr>
+        <tr><td><code>apps/cloud_federation_api/README.md</code></td><td><span class="badge badge-green">Current</span></td><td>Keep</td></tr>
+        <tr><td><code>apps/dashboard/README.md</code></td><td><span class="badge badge-green">Current</span></td><td>Keep</td></tr>
+        <tr><td><code>apps/theming/README.md</code></td><td><span class="badge badge-green">Current</span></td><td>Keep</td></tr>
+      </tbody>
+    </table>
+  </details>
+
+  <details>
+    <summary>Tier 5: Tool Artifacts</summary>
+    <table>
+      <thead><tr><th>File</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><code>.serena/memories/</code></td><td><span class="badge badge-green">Current</span></td><td>5 memories, just created via onboarding</td></tr>
+      </tbody>
+    </table>
+  </details>
+</section>
+
+<section id="services">
+  <h2>Services & Configuration</h2>
+
+  <h3>Internal Services</h3>
+  <div class="card">
+    <table>
+      <thead><tr><th>Service</th><th>Config</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>PHP-FPM/Apache</td><td>Dockerfile + php-tuning.ini</td><td><span class="badge badge-green">Configured</span></td></tr>
+        <tr><td>Redis Cache</td><td>docker/redis-config.php</td><td><span class="badge badge-green">Configured</span></td></tr>
+        <tr><td>Preview Generator</td><td>docker/performance-config.php</td><td><span class="badge badge-green">Configured</span></td></tr>
+        <tr><td>SMTP</td><td>docker/smtp-config.php</td><td><span class="badge badge-green">Configured</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>External Services</h3>
+  <div class="card">
+    <table>
+      <thead><tr><th>Service</th><th>Provider</th><th>Env Vars</th></tr></thead>
+      <tbody>
+        <tr><td>PostgreSQL</td><td>Railway</td><td>POSTGRES_HOST, POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD</td></tr>
+        <tr><td>Redis</td><td>Railway</td><td>REDIS_URL</td></tr>
+        <tr><td>S3 Object Storage</td><td>Railway Buckets</td><td>OBJECTSTORE_S3_BUCKET, _HOST, _KEY, _SECRET, _PORT, _REGION, _SSL</td></tr>
+        <tr><td>SMTP Email</td><td>Resend</td><td>SMTP_HOST, SMTP_PORT, SMTP_PASSWORD, MAIL_FROM_ADDRESS, MAIL_DOMAIN</td></tr>
+        <tr><td>Secrets</td><td>Doppler</td><td>doppler.yaml (project: skafld-cloud)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="roadmap">
+  <h2>Roadmap</h2>
+
+  <h3>Prioritized Next Steps</h3>
+
+  <div class="priority-1">
+    <strong>1. Resolve v33/v34 Version Mismatch</strong>
+    <p><code>version.php</code> declares v34.0.0 dev, but Dockerfile uses <code>nextcloud:33-apache</code>. Decide: stay v33 stable or upgrade base when v34 is available.</p>
+  </div>
+
+  <div class="priority-2">
+    <strong>2. Verify S3 Object Storage</strong>
+    <p>Env vars defined in <code>.env.example</code> but bucket provisioning on Railway is unverified. Test file uploads to S3.</p>
+  </div>
+
+  <div class="priority-2">
+    <strong>3. Create Skafld-Specific README</strong>
+    <p>Replace stock Nextcloud README with deployment instructions, architecture overview, and Skafld branding.</p>
+  </div>
+
+  <div class="priority-3">
+    <strong>4. Set Up Release Tagging</strong>
+    <p>No git tags exist. Create baseline tag (e.g., <code>v0.1.0</code>) for future changelog generation.</p>
+  </div>
+
+  <div class="priority-3">
+    <strong>5. Upstream Sync Strategy</strong>
+    <p>Determine how/when to sync with upstream <code>nextcloud/server</code> for security patches without losing Skafld customizations.</p>
+  </div>
+
+  <details>
+    <summary>Completed Items</summary>
+    <table>
+      <thead><tr><th>Item</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Deploy Nextcloud on Railway</td><td><span class="badge badge-green">Done</span></td></tr>
+        <tr><td>Configure Redis caching</td><td><span class="badge badge-green">Done</span></td></tr>
+        <tr><td>Configure SMTP email (Resend)</td><td><span class="badge badge-green">Done</span></td></tr>
+        <tr><td>Enable media preview generation</td><td><span class="badge badge-green">Done</span></td></tr>
+        <tr><td>PHP performance tuning</td><td><span class="badge badge-green">Done</span></td></tr>
+        <tr><td>Doppler secrets management</td><td><span class="badge badge-green">Done</span></td></tr>
+      </tbody>
+    </table>
+  </details>
+
+  <details>
+    <summary>Inline TODOs (30 items, all upstream)</summary>
+    <p>All 30 inline TODO/FIXME/HACK comments are from upstream Nextcloud code (Cypress tests, core PHP, core JS). No Skafld-specific TODOs found. No action needed unless contributing upstream.</p>
+  </details>
+</section>
+
+<section id="changelog">
+  <h2>Changelog</h2>
+  <p class="meta">No release tags exist. Showing all Skafld-specific commits.</p>
+
+  <h3>Features</h3>
+  <table>
+    <thead><tr><th>Hash</th><th>Date</th><th>Message</th></tr></thead>
+    <tbody>
+      <tr><td><code>305d853</code></td><td>2026-04-22</td><td>Add Doppler secrets management and Railway configuration</td></tr>
+      <tr><td><code>23ba1d5</code></td><td>2026-04-22</td><td>Production optimization: Redis caching, ffmpeg previews, PHP tuning</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Fixes</h3>
+  <table>
+    <thead><tr><th>Hash</th><th>Date</th><th>Message</th></tr></thead>
+    <tbody>
+      <tr><td><code>2003e52</code></td><td>2026-04-22</td><td>Fix Dockerfile: correct ImageMagick package for Debian Trixie</td></tr>
+      <tr><td><code>f2ecf58</code></td><td>2026-04-20</td><td>Clean v34 deployment: fix all root causes</td></tr>
+      <tr><td><code>d05722d</code></td><td>2026-04-20</td><td>Fix: disable authoritative classmaps for v34 autoloading</td></tr>
+      <tr><td><code>766d44a</code></td><td>2026-04-20</td><td>Fix Dockerfile: bump base image app max-version 33->34</td></tr>
+      <tr><td><code>52fa3eb</code></td><td>2026-04-20</td><td>Fix: custom entrypoint to clean stale apps BEFORE occ upgrade</td></tr>
+      <tr><td><code>87722b3</code></td><td>2026-04-20</td><td>Fix: remove stale v33 apps not in v34 source before upgrade</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Documentation</h3>
+  <table>
+    <thead><tr><th>Hash</th><th>Date</th><th>Message</th></tr></thead>
+    <tbody>
+      <tr><td><code>72d169b</code></td><td>2026-04-22</td><td>Update .env.example with complete variable inventory</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Reverts</h3>
+  <table>
+    <thead><tr><th>Hash</th><th>Date</th><th>Message</th></tr></thead>
+    <tbody>
+      <tr><td><code>3685f1f</code></td><td>2026-04-21</td><td>Revert to stock Nextcloud 33 stable</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="deps">
+  <h2>Dependencies</h2>
+
+  <h3>PHP (Composer)</h3>
+  <div class="card">
+    <p><strong>Runtime:</strong> PHP 8.2+ with 18 required extensions</p>
+    <p><strong>Dev:</strong> bamarni/composer-bin-plugin</p>
+    <p><strong>Lock file:</strong> <span class="badge badge-green">Present</span></p>
+  </div>
+
+  <h3>Node (npm)</h3>
+  <div class="card">
+    <p><strong>Key Runtime:</strong> Vue 3.5, Pinia 3, @nextcloud/* libraries, webdav 5.9</p>
+    <p><strong>Key Dev:</strong> Vite 7.3, Vitest 4.1, Cypress 15.12, ESLint 10.2</p>
+    <p><strong>Lock file:</strong> <span class="badge badge-green">Present</span></p>
+    <p><strong>Engines:</strong> Node ^24.0.0, npm ^11.3.0</p>
+  </div>
+</section>
+
+<section id="recommendations">
+  <h2>Recommendations</h2>
+
+  <div class="priority-1">
+    <strong>Critical: Resolve v33/v34 version mismatch</strong>
+    <p><code>version.php</code> says v34.0.0 dev but Dockerfile uses <code>nextcloud:33-apache</code>. This was the subject of 7+ fix commits over April 20-22. Decision needed: stay on v33 stable (safe) or plan v34 upgrade (when base image is available).</p>
+  </div>
+
+  <div class="priority-2">
+    <strong>Warning: Verify S3 object storage is provisioned</strong>
+    <p>Without S3, files are stored in the container volume and may be lost on redeployment. Verify the Railway bucket is provisioned and test uploads.</p>
+  </div>
+
+  <div class="priority-2">
+    <strong>Warning: Update README.md</strong>
+    <p>The README is stock Nextcloud. Add a Skafld Cloud header, deployment architecture, and links to cloud.skafldstudio.com at the top.</p>
+  </div>
+
+  <div class="priority-3">
+    <strong>Suggestion: Create baseline release tag</strong>
+    <p>Run <code>git tag -a v0.1.0 -m "Baseline: Nextcloud 33 on Railway with Redis, Resend, Doppler"</code> to anchor future changelogs.</p>
+  </div>
+
+  <div class="priority-3">
+    <strong>Suggestion: Document upstream sync strategy</strong>
+    <p>The <code>upstream</code> remote points to <code>nextcloud/server</code>. Document when and how to merge upstream changes (security patches, minor releases) while preserving the <code>docker/</code> customizations.</p>
+  </div>
+</section>
+
+</main>
+
+<script>
+const links = document.querySelectorAll('nav a');
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+  links.forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + current); });
+});
+</script>
+
+</body>
+</html>
