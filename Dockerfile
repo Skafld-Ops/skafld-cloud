@@ -6,7 +6,7 @@ RUN set -ex; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
         ffmpeg \
-        libmagickcore-6.q16-7-extra \
+        libmagickcore-7.q16-10-extra \
     ; \
     rm -rf /var/lib/apt/lists/*
 
